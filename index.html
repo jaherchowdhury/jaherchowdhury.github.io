@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaher Hassan Chowdhury | AI & ML Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1e2228;
+    --surface: #252b33;
+    --surface2: #2c333d;
+    --border: #3a4250;
+    --accent: #e07b54;
+    --accent2: #5ba08a;
+    --accent3: #e0a854;
+    --text: #e8e2d9;
+    --muted: #8a9099;
+    --muted2: #b0b8c1;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(30,34,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── CS CIRCUIT CANVAS BG ── */
+  #matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.22;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid { display: none; }
+
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(224,123,84,0.08) 0%, transparent 65%);
+    top: -150px; right: -150px;
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,160,138,0.07) 0%, transparent 65%);
+    bottom: -50px; left: 50px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.35s;
+  }
+
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted2);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.5s;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.65s;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 400;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background: #e8906a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(224,123,84,0.3);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--muted2);
+    background: transparent;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.8s;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+
+  .hero-stats > div {
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 0 1.2rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-stats > div:first-child {
+    padding-left: 0;
+  }
+
+  .hero-stats > div:last-child {
+    border-right: none;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--accent);
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "calt" 0;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.2rem;
+    white-space: nowrap;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 3rem; position: relative; z-index: 1; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    color: var(--text);
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted2);
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted2);
+    padding: 0.6rem 1rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .cert-item span.dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    flex-shrink: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(224,123,84,0.4);
+  }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-org {
+    font-size: 0.9rem;
+    color: var(--accent2);
+    margin-bottom: 0.8rem;
+    font-style: italic;
+  }
+
+  .timeline-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline-points li {
+    font-size: 0.9rem;
+    color: var(--muted2);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .timeline-points li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* ── RESEARCH / PROJECTS ── */
+  #research { background: var(--surface); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.8rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover {
+    border-color: rgba(224,123,84,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted2);
+    line-height: 1.7;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 0.7rem; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted2);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--surface); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .edu-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(224,123,84,0.06) 0%, transparent 70%);
+  }
+
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .edu-school {
+    font-size: 0.9rem;
+    color: var(--accent2);
+    margin-bottom: 0.8rem;
+  }
+
+  .edu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .edu-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent2);
+    background: rgba(45,106,79,0.08);
+    border: 1px solid rgba(45,106,79,0.2);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  /* ── AWARDS ── */
+  .awards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .award-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .award-item:hover {
+    border-color: rgba(224,123,84,0.25);
+    background: var(--surface2);
+  }
+
+  .award-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .award-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .award-org {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    text-align: center;
+    background: var(--surface2);
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .contact-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted2);
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(56,189,248,0.05);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    .about-grid, .edu-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.2rem; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">JHC</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">AI & ML Researcher · University of Winnipeg</div>
+    <h1>Jaher Hassan<br><span class="highlight">Chowdhury</span></h1>
+    <p class="hero-desc">
+      Graduate researcher specializing in <strong>Multimodal AI</strong>, NLP, and Computer Vision,
+      with hands-on industry experience in <strong>IT Governance, Cybersecurity, and Digital Transformation</strong> at Robi Axiata PLC (Axiata Group).
+      Bridging rigorous academic research with enterprise-grade technical practice.
+    </p>
+    <div class="hero-actions">
+      <a href="#research" class="btn btn-primary">View Research ↗</a>
+      <a href="mailto:jaher.hassan.chowdhury@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4<span style="font-feature-settings:'kern' 0;letter-spacing:0">.</span>375</div>
+        <div class="stat-label">M.Sc. GPA / 4.5</div>
+      </div>
+      <div>
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Publications</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years Research</div>
+      </div>
+      <div>
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Industry Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container fade-in">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Researcher. Engineer. Educator.</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a graduate computer scientist at the <strong>University of Winnipeg</strong> with a deep focus on multimodal AI: the intersection of language, vision, and audio understanding.</p>
+        <p>My work spans <strong>emotion recognition</strong>, <strong>meme detection</strong>, <strong>biological species identification</strong>, and <strong>Three-Way Decision theory</strong> applied to multimodal data.</p>
+        <p>Before academia, I spent over a year at <strong>Robi Axiata PLC</strong> driving IT governance, cybersecurity, and digital transformation initiatives, giving me a rare perspective bridging industry and research.</p>
+        <p>I'm actively seeking opportunities in <strong>data science, ML engineering, and AI research</strong> where I can contribute to data-driven decision-making and innovative technology solutions.</p>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:1rem;">Certifications</div>
+        <div class="cert-list">
+          <div class="cert-item"><span class="dot"></span>ITIL® 4 Foundation</div>
+          <div class="cert-item"><span class="dot"></span>AWS Certified Solutions Architect</div>
+          <div class="cert-item"><span class="dot"></span>AWS Certified Machine Learning</div>
+          <div class="cert-item"><span class="dot"></span>Google Data Analytics Professional</div>
+          <div class="cert-item"><span class="dot"></span>Business Process Framework (eTOM): Practitioner</div>
+          <div class="cert-item"><span class="dot"></span>Open Digital Framework (ODF): Practitioner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container fade-in">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">Feb 2026 – Present</div>
+        <div class="timeline-role">Research Associate</div>
+        <div class="timeline-org">The University of Winnipeg</div>
+        <ul class="timeline-points">
+          <li>Researching Three-Way Decision (3WD) theory applied to multimodal data.</li>
+          <li>Built ML algorithm evaluating acceptance, rejection, and deferment decisions using Vision Language Models.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Sep 2023 – Dec 2025</div>
+        <div class="timeline-role">Graduate Research Assistant</div>
+        <div class="timeline-org">The University of Winnipeg</div>
+        <ul class="timeline-points">
+          <li>Conducted multimodal research: NLP, Image Processing, and Audio Signal Processing using LLMs and VLMs.</li>
+          <li>Implemented transformer models with contrastive pretraining on 1M+ multimodal insect records (Graduate Research Award project).</li>
+          <li>Applied LoRA fine-tuning and DeepSpeed for distributed GPU training.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2025 – Nov 2025</div>
+        <div class="timeline-role">Senior Research Assistant, Biology Dept.</div>
+        <div class="timeline-org">The University of Winnipeg</div>
+        <ul class="timeline-points">
+          <li>Developed AI fish species identification system using SAM-based segmentation and computer vision.</li>
+          <li>Supported Manitoba's Recreational Fisheries data analysis and management.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2024 – Present</div>
+        <div class="timeline-role">Teaching Assistant</div>
+        <div class="timeline-org">The University of Winnipeg</div>
+        <ul class="timeline-points">
+          <li>Courses: Advanced Machine Learning, Digital Information Processing, Cloud Computing, Project Management.</li>
+          <li>Mentoring students with coursework, research direction, and academic guidance.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">May 2022 – Aug 2023</div>
+        <div class="timeline-role">Specialist, Technical Governance & Assurance</div>
+        <div class="timeline-org">Robi Axiata PLC (Axiata Group Berhad)</div>
+        <ul class="timeline-points">
+          <li>Managed IS/IT/Telecom governance aligned with ISO, ITIL, CISA, eTOM, and COBIT standards.</li>
+          <li>Supported internal/external audits and drove process digitization and automation initiatives.</li>
+          <li>Received CFO Excellence Award (2022).</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container fade-in">
+    <div class="section-label">Publications & Projects</div>
+    <h2 class="section-title">Research Work</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-tag">Computer Vision · Published</div>
+        <div class="project-title">Facial Emotion Recognition via CNN</div>
+        <div class="project-desc">Developed CNN-based image analysis pipelines to recognize human facial emotions, improving model performance through advanced preprocessing techniques.</div>
+        <a href="#" class="project-link">View Publication →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Audio Signal Processing · Published</div>
+        <div class="project-title">Speech Emotion Recognition (LSTM / Bi-LSTM)</div>
+        <div class="project-desc">Designed and evaluated LSTM and Bi-LSTM architectures combined with classical signal-processing features for audio-based emotion recognition.</div>
+        <a href="#" class="project-link">View Publication →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Multimodal AI · Published</div>
+        <div class="project-title">Harmful Meme Detection with VLMs</div>
+        <div class="project-desc">Applied Vision-Language Models for multimodal sentiment and harmful meme detection across multilingual datasets, fusing visual and textual features.</div>
+        <a href="#" class="project-link">View Publication →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Research Award Project</div>
+        <div class="project-title">Multimodal Insect Record Retrieval (1M+ Records)</div>
+        <div class="project-desc">Transformer models with contrastive pretraining on 1M+ insect records (image, DNA, text). Leveraged mixed-precision, LoRA fine-tuning, and DeepSpeed for scalable training.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Applied AI · Biology</div>
+        <div class="project-title">AI Fish Species Identification System</div>
+        <div class="project-desc">SAM-based segmentation and computer vision for identifying fish species from angler-submitted images, supporting Manitoba's Recreational Fisheries management.</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Decision Theory · Ongoing</div>
+        <div class="project-title">Three-Way Decision with Vision Language Models</div>
+        <div class="project-desc">Applying 3WD theory to multimodal data fusion to model nuanced acceptance, rejection, and deferment decisions in AI systems.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container fade-in">
+    <div class="section-label">Technical Skills</div>
+    <h2 class="section-title">Stack & Tools</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-title">Data Science & ML</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">Scikit-Learn</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">LoRA</span>
+          <span class="skill-tag">DeepSpeed</span>
+          <span class="skill-tag">Transformers</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Programming Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">C</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud & DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Microsoft Azure</span>
+          <span class="skill-tag">Google Cloud</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">VMware</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Data Visualization</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Matplotlib</span>
+          <span class="skill-tag">Seaborn</span>
+          <span class="skill-tag">Excel (Pivot)</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">IT Governance & Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">ITIL 4</span>
+          <span class="skill-tag">COBIT</span>
+          <span class="skill-tag">ISO Standards</span>
+          <span class="skill-tag">eTOM</span>
+          <span class="skill-tag">CISA</span>
+          <span class="skill-tag">ODF</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Research Areas</div>
+        <div class="skill-tags">
+          <span class="skill-tag">NLP</span>
+          <span class="skill-tag">Computer Vision</span>
+          <span class="skill-tag">LLMs / VLMs</span>
+          <span class="skill-tag">Audio Processing</span>
+          <span class="skill-tag">Multimodal AI</span>
+          <span class="skill-tag">3WD Theory</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container fade-in">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">Master of Science in Applied Computer Science</div>
+        <div class="edu-school">The University of Winnipeg</div>
+        <p style="font-size:0.88rem; color:var(--muted2);">September 2023 – December 2025 · Thesis Awarded Distinction</p>
+        <div class="edu-meta">
+          <span class="edu-badge">GPA 4.375 / 4.5</span>
+          <span class="edu-badge">Distinction</span>
+          <span class="edu-badge">Research Award</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Science in Computer Science & Engineering</div>
+        <div class="edu-school">Chittagong University of Engineering & Technology (CUET)</div>
+        <p style="font-size:0.88rem; color:var(--muted2);">July 2016 – July 2021</p>
+        <div class="edu-meta">
+          <span class="edu-badge">GPA 3.47 / 4.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Awards -->
+    <div style="margin-top: 4rem;">
+      <div class="section-label" style="margin-bottom: 1rem;">Recognition</div>
+      <div class="awards-list">
+        <div class="award-item">
+          <div class="award-icon">🏆</div>
+          <div>
+            <div class="award-name">Graduate Student Research Award</div>
+            <div class="award-org">University of Winnipeg · May 2025</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon">🎓</div>
+          <div>
+            <div class="award-name">Graduate Student Knowledge Mobilization Grant</div>
+            <div class="award-org">University of Winnipeg · January 2025</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon">📚</div>
+          <div>
+            <div class="award-name">Graduate Research Scholarship</div>
+            <div class="award-org">University of Winnipeg · Since September 2023</div>
+          </div>
+        </div>
+        <div class="award-item">
+          <div class="award-icon">⭐</div>
+          <div>
+            <div class="award-name">CFO Excellence Award</div>
+            <div class="award-org">Robi Axiata PLC · 2022</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container fade-in">
+    <div class="section-label" style="justify-content:center;">Let's Connect</div>
+    <h2 class="section-title" style="margin-bottom:1rem;">Get in Touch</h2>
+    <p style="color:var(--muted2); max-width: 500px; margin: 0 auto; font-size:0.98rem;">
+      Open to research collaborations, data science roles, and ML engineering opportunities.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:jaher.hassan.chowdhury@gmail.com" class="contact-link">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Email
+      </a>
+      <a href="https://www.linkedin.com/in/" class="contact-link" target="_blank">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://scholar.google.com/" class="contact-link" target="_blank">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        Google Scholar
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built with care · Jaher Hassan Chowdhury · 2026
+</footer>
+
+<script>
+  // ── CS-STYLE FALLING CODE BACKGROUND ──
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+
+  const symbols = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ{}[]<>/\\;:=+-*&|^~%$#@!?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const fontSize = 13;
+  let cols, drops;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cols = Math.floor(canvas.width / fontSize);
+    drops = Array(cols).fill(0).map(() => Math.random() * -80);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(30,34,40,0.045)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < drops.length; i++) {
+      const char = symbols[Math.floor(Math.random() * symbols.length)];
+      const progress = drops[i] / (canvas.height / fontSize);
+
+      // Color: bright head fades to teal to purple
+      if (drops[i] * fontSize > canvas.height * 0.85) {
+        ctx.fillStyle = 'rgba(129,140,248,0.6)';
+      } else if (drops[i] * fontSize > canvas.height * 0.5) {
+        ctx.fillStyle = 'rgba(56,189,248,0.5)';
+      } else {
+        ctx.fillStyle = 'rgba(52,211,153,0.45)';
+      }
+
+      // Bright head character
+      if (Math.random() > 0.96) {
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      }
+
+      ctx.font = fontSize + 'px "DM Mono", monospace';
+      ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i] += 0.4 + Math.random() * 0.3;
+    }
+  }
+
+  setInterval(draw, 45);
+</script>
+
+<script>
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
